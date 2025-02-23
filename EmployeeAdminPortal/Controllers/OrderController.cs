@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeAdminPortal.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class OrderController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
