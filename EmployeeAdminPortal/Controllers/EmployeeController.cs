@@ -1,6 +1,6 @@
 ﻿using EmployeeAdminPortal.Data;
-using EmployeeAdminPortal.Models;
-using EmployeeAdminPortal.Models.Entities;
+using EmployeeAdminPortal.Entities;
+using EmployeeAdminPortal.Models.EmployeeCon;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAdminPortal.Controllers
@@ -93,8 +93,43 @@ namespace EmployeeAdminPortal.Controllers
             return Ok();
         }
 
+        /*
+         
+        [HttpGet]
+        public IActionResult GetUser([FromQuery] int userId)
+        {
+            return Ok(userId);
+        }
 
+        [HttpGet("/user/{id}")]
+        public IActionResult GetUserDetails([FromRoute] int id)
+        {
 
+            return Ok(id);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult UploadFile([FromForm] IFormFile file)
+        {
+            return Ok(file.FileName);
+        }
+
+        [HttpGet]
+        public IActionResult GetHeader([FromHeader] string customHeader)
+        {
+            return Ok(customHeader);
+        }
+        */
 
     }
 }

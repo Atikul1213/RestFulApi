@@ -1,4 +1,4 @@
-﻿namespace EmployeeAdminPortal.Models
+﻿namespace EmployeeAdminPortal.Models.EmployeeCon
 {
     public class AddEmployeeDto
     {

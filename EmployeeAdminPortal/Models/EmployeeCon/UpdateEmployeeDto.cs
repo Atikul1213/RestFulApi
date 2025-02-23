@@ -1,8 +1,7 @@
-﻿namespace EmployeeAdminPortal.Models.Entities
+﻿namespace EmployeeAdminPortal.Models.EmployeeCon
 {
-    public class Employee
+    public class UpdateEmployeeDto
     {
-        public int Id { get; set; }
         public required string Name { get; set; }
         public required string Email { get; set; }
         public string Phone { get; set; }
