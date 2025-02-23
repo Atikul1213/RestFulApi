@@ -2,7 +2,7 @@
 
 namespace EmployeeAdminPortal.Models.EcommerceModel.DTO
 {
-    public class CustomerrLoginDTO
+    public class CustomerLoginDTO
     {
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid Email")]

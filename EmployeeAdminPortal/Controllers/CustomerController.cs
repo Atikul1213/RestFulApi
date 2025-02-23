@@ -39,7 +39,7 @@ namespace EmployeeAdminPortal.Controllers
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromHeader(Name = "X-Client-ID")] string clientId,
-                                                [FromBody] CustomerrLoginDTO loginDto)
+                                                [FromBody] CustomerLoginDTO loginDto)
         {
             if (string.IsNullOrEmpty(clientId))
                 return BadRequest("Missing X-client-id header");
