@@ -23,7 +23,6 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(employees);
         }
 
-
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetEmployeeById(int id)
@@ -35,7 +34,6 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(employee);
         }
-
 
         [HttpPost]
         public IActionResult AddEmployee(AddEmployeeDto addEmployeeDto)
@@ -54,8 +52,6 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(employeeEntity);
         }
 
-
-
         [HttpPut]
         [Route("{id:int}")]
         public IActionResult UpdateEmployee(int id, UpdateEmployeeDto updateEmployeeDto)
@@ -72,11 +68,8 @@ namespace EmployeeAdminPortal.Controllers
 
             _db.Employees.Update(employee);
             _db.SaveChanges();
-
             return Ok(employee);
         }
-
-
 
         [HttpDelete]
         [Route("{id:int}")]
@@ -92,6 +85,77 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetEmployeeById1(int id)
+        {
+            return Ok(1);
+        }
+
+        [HttpGet("Gender/{gender}/City/{city}")]
+        public IActionResult GetEmployeeByGenderAndCity(string gender, string city)
+        {
+            return Ok(1);
+        }
+
+        [HttpGet("Search")]
+        public IActionResult SearcEmployee([FromQuery] string department)
+        {
+            // GET api/Employee/Search?Department=HR
+            return BadRequest();
+        }
+
+        // GET api/Employee/Search?Gender=Male&Department=IT&City=Los Angeles
+        public IActionResult EmployeeSearch([FromQuery] string? gender, [FromQuery] string? department, [FromQuery] string? city)
+        {
+            return NotFound();
+        }
+
+        [HttpGet("DirectSearch")]
+        // GET api/Employee/DirectSearch?Gender=Male&Department=IT
+        public IActionResult DirectSearchEmployees()
+        {
+            var gender = HttpContext.Request.Query["Gender"].ToString();
+            var department = HttpContext.Request.Query["Department"].ToString();
+            var city = HttpContext.Request.Query["City"].ToString();
+
+            return BadRequest();
+        }
+
+
+        // GET api/Employee/Gender/Male?Department=IT&City=Los Angeles
+
+        [HttpGet("Gender/{gender}")]
+        public IActionResult GetEmployeeByGender1([FromRoute] string gender, [FromQuery] string? department, [FromQuery] string? city)
+        {
+
+            return Ok();
+        }
+
+        // Action Method with Multiple Routes
+        [HttpGet("All")]
+        [HttpGet("AllEmployees")]
+        [HttpGet("GetAll")]
+        public IActionResult GetAllEmployee()
+        {
+            return Ok();
+        }
+
+        [Route("Employee/GetAllEmployees2")]
+        [HttpGet]
+        public string GetAllEmployees2()
+        {
+            return "Response from GetAllEmployees Method";
+        }
+
+
+
+
+
+
+
+
+
 
         /*
          
