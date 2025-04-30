@@ -86,6 +86,8 @@ namespace EmployeeAdminPortal.Controllers
             return Ok();
         }
 
+        /*
+
         [HttpGet("{id}")]
         public IActionResult GetEmployeeById1(int id)
         {
@@ -157,7 +159,6 @@ namespace EmployeeAdminPortal.Controllers
 
 
 
-        /*
          
         [HttpGet]
         public IActionResult GetUser([FromQuery] int userId)

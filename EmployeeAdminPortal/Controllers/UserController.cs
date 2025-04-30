@@ -95,6 +95,65 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(profile);
         }
+
+
+        [HttpPut("UpdateProfile")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDTO updateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var emailClaim = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email);
+
+            if (emailClaim == null)
+            {
+                return Unauthorized(new { message = "Invalid token: Email claim missing." });
+            }
+
+            string userEmail = emailClaim.Value;
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == userEmail.ToLower());
+
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            if (!string.IsNullOrEmpty(updateDto.FirstName))
+            {
+                user.FirstName = updateDto.FirstName;
+            }
+            if (!string.IsNullOrEmpty(updateDto.LastName))
+            {
+                user.LastName = updateDto.LastName;
+            }
+            if (!string.IsNullOrEmpty(updateDto.Email))
+            {
+                var emailExist = await _context.Users.AnyAsync(u => u.Email.ToLower() == updateDto.Email.ToLower());
+
+                if (emailExist)
+                {
+                    return Conflict(new { message = "Email is already use by another account" });
+                }
+                user.Email = updateDto.Email;
+            }
+            if (!string.IsNullOrEmpty(updateDto.Password))
+            {
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);
+                user.Password = hashedPassword;
+            }
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Profile updated successfully." });
+        }
+
+
+
     }
 
 }
