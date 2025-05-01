@@ -89,6 +89,33 @@ namespace EmployeeAdminPortal.Controllers
 
 
         /*
+        [HttpGet]
+        public IActionResult GetUser([FromQuery] int userId)
+        {
+            return Ok(userId);
+        }
+
+
+        [HttpGet("/user/{id}")]
+        public IActionResult GetUser([FromRoute] int id)
+        {
+            return Ok(id);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] User user)
+        {
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult UploadFile([FromForm] IFormFile file)
+        {
+            return Ok(file.FileName);
+        }
+
+
+         
 
         [Route("{employeeId: int}")]
         [HttpGet]
