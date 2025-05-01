@@ -86,7 +86,95 @@ namespace EmployeeAdminPortal.Controllers
             return Ok();
         }
 
+
+
         /*
+
+        [Route("{employeeId: int}")]
+        [HttpGet]
+        public string GetEmployeeDetails(int employeeId)
+        {
+            return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
+        }
+
+
+        [Route("{employeeName}")]
+        [HttpGet]
+        public string GetEmployeeDetails(string employeeName)
+        {
+            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
+        }
+
+
+        [Route("{employeeId:int:min(100)}")]
+        [HttpGet]
+        public string GetEmployeeDetails(int employeeId)
+        {
+            return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
+        }
+
+
+        [Route("{employeeName:alpha}")]
+        [HttpGet]
+        public string GetEmployeeDetails(string employeeName)
+        {
+            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
+        }
+
+
+        [Route("{employeeId:int:range(1,100)}")]
+        [HttpGet]
+        public string GetEmployeeDetails(int employeeId)
+        {
+            return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
+        }
+
+
+        [Route("{employeeName:alpha:minlength(5)}")]
+        [HttpGet]
+        public string GetEmployeeDetails(string employeeName)
+        {
+            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
+        }
+
+        [Route("{employeeName:alpha:minlength(5):maxlength(10)}")]
+        [HttpGet]
+        public string GetEmployeeDetails(string employeeName)
+        {
+            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
+        }
+
+        [Route("{employeeName:regex(a(b|c))}")]
+        [HttpGet]
+        public string GetEmployeeDetails(string employeeName)
+        {
+            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
+        }
+
+
+
+        
+         
+        [Route("employee/all")]
+        [HttpGet]
+        public string GetAllEmployees()
+        {
+            return "Response from GetAllEmployees Method";
+        }
+
+        [Route("employee/{id}")]
+        [HttpGet]
+        public string GetEmployeeById(int id)
+        {
+            return $"Response from GetEmployeeById Method with ID: {id}";
+        }
+        [Route("employee/department/{department}")]
+        [HttpGet]
+        public string GetDepartmentEmployee(string department)
+        {
+            return $"Response from GetDepartmentEmployee Method with Department: {department}";
+        }
+
 
         [HttpGet("{id}")]
         public IActionResult GetEmployeeById1(int id)
