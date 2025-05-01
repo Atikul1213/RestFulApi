@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EmployeeAdminPortal.Models
+﻿namespace EmployeeAdminPortal.Models
 {
     public class User
     {
-        [Required]
+        public int Id { get; set; }
         public string Name { get; set; }
-        [Range(18, 100)]
-        public int Age { get; set; }
+        public string Email { get; set; }
     }
 }

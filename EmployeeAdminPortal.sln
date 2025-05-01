@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeAdminPortal", "EmployeeAdminPortal\EmployeeAdminPortal.csproj", "{9F694DCF-D730-4DE3-AB1D-77D005973560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAPI.XUnitTests", "MyAPI.XUnitTests\MyAPI.XUnitTests.csproj", "{D65CE3FC-63BD-4D46-AA4B-A9B38A177CC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9F694DCF-D730-4DE3-AB1D-77D005973560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F694DCF-D730-4DE3-AB1D-77D005973560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F694DCF-D730-4DE3-AB1D-77D005973560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D65CE3FC-63BD-4D46-AA4B-A9B38A177CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D65CE3FC-63BD-4D46-AA4B-A9B38A177CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D65CE3FC-63BD-4D46-AA4B-A9B38A177CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D65CE3FC-63BD-4D46-AA4B-A9B38A177CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
