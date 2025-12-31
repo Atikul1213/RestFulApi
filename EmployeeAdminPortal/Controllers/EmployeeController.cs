@@ -115,16 +115,6 @@ namespace EmployeeAdminPortal.Controllers
         }
 
 
-         
-
-        [Route("{employeeId: int}")]
-        [HttpGet]
-        public string GetEmployeeDetails(int employeeId)
-        {
-            return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
-        }
-
-
         [Route("{employeeName}")]
         [HttpGet]
         public string GetEmployeeDetails(string employeeName)
@@ -133,55 +123,25 @@ namespace EmployeeAdminPortal.Controllers
         }
 
 
+        [Route("{employeeId: int}")]
         [Route("{employeeId:int:min(100)}")]
-        [HttpGet]
-        public string GetEmployeeDetails(int employeeId)
-        {
-            return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
-        }
-
-
-        [Route("{employeeName:alpha}")]
-        [HttpGet]
-        public string GetEmployeeDetails(string employeeName)
-        {
-            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
-        }
-
-
+        [Route("{employeeId:int:max(100)}")]
         [Route("{employeeId:int:range(1,100)}")]
+        [Route("{employeeName:length(5)}")]
+        [Route("{employeeName:alpha:minlength(5)}")]
+        [Route("{employeeName:alpha:maxlength(5)}")]
+        [Route("{employeeName:alpha:minlength(5):maxlength(10)}")]
+        [Route("{employeeName:regex(a(b|c))}")]
+        [Route("{employeeName:alpha}")]
+        [Route("{minPrice:int:min(100)}/to/{maxPrice:int:max(100000)}")]
+        [Route("{category:alpha}/{rating:int:range(1,5)}")]
         [HttpGet]
         public string GetEmployeeDetails(int employeeId)
         {
             return $"Response from GetEmployee Details by employeeId: {employeeId} Method";
         }
 
-
-        [Route("{employeeName:alpha:minlength(5)}")]
-        [HttpGet]
-        public string GetEmployeeDetails(string employeeName)
-        {
-            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
-        }
-
-        [Route("{employeeName:alpha:minlength(5):maxlength(10)}")]
-        [HttpGet]
-        public string GetEmployeeDetails(string employeeName)
-        {
-            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
-        }
-
-        [Route("{employeeName:regex(a(b|c))}")]
-        [HttpGet]
-        public string GetEmployeeDetails(string employeeName)
-        {
-            return $"Response from GetEmployee Details by employeeName: {employeeName} Method";
-        }
-
-
-
-        
-         
+       
         [Route("employee/all")]
         [HttpGet]
         public string GetAllEmployees()
@@ -189,12 +149,15 @@ namespace EmployeeAdminPortal.Controllers
             return "Response from GetAllEmployees Method";
         }
 
+
         [Route("employee/{id}")]
         [HttpGet]
         public string GetEmployeeById(int id)
         {
             return $"Response from GetEmployeeById Method with ID: {id}";
         }
+
+
         [Route("employee/department/{department}")]
         [HttpGet]
         public string GetDepartmentEmployee(string department)
@@ -209,11 +172,13 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(1);
         }
 
+
         [HttpGet("Gender/{gender}/City/{city}")]
         public IActionResult GetEmployeeByGenderAndCity(string gender, string city)
         {
             return Ok(1);
         }
+
 
         [HttpGet("Search")]
         public IActionResult SearcEmployee([FromQuery] string department)
@@ -222,14 +187,26 @@ namespace EmployeeAdminPortal.Controllers
             return BadRequest();
         }
 
+
+        [HttpGet("Search")]
+        public IActionResult SearcEmployee([FromQuery] EmployeeSearch searchModel)
+        {
+            // GET api/Employee/Search?Gender=Male&Department=IT&City=Los Angeles
+            return BadRequest();
+        }
+
+
+
         // GET api/Employee/Search?Gender=Male&Department=IT&City=Los Angeles
+         [HttpGet("Search")]
         public IActionResult EmployeeSearch([FromQuery] string? gender, [FromQuery] string? department, [FromQuery] string? city)
         {
             return NotFound();
         }
 
-        [HttpGet("DirectSearch")]
+
         // GET api/Employee/DirectSearch?Gender=Male&Department=IT
+        [HttpGet("DirectSearch")]
         public IActionResult DirectSearchEmployees()
         {
             var gender = HttpContext.Request.Query["Gender"].ToString();
@@ -245,9 +222,9 @@ namespace EmployeeAdminPortal.Controllers
         [HttpGet("Gender/{gender}")]
         public IActionResult GetEmployeeByGender1([FromRoute] string gender, [FromQuery] string? department, [FromQuery] string? city)
         {
-
             return Ok();
         }
+
 
         // Action Method with Multiple Routes
         [HttpGet("All")]
@@ -264,15 +241,7 @@ namespace EmployeeAdminPortal.Controllers
         {
             return "Response from GetAllEmployees Method";
         }
-
-
-
-
-
-
-
-
-
+         
 
          
         [HttpGet]
@@ -281,12 +250,13 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(userId);
         }
 
+
         [HttpGet("/user/{id}")]
         public IActionResult GetUserDetails([FromRoute] int id)
         {
-
             return Ok(id);
         }
+
 
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
@@ -309,7 +279,16 @@ namespace EmployeeAdminPortal.Controllers
         {
             return Ok(customHeader);
         }
-        */
 
+
+        ///  Overriding a Controller-Level Route Prefix 
+        [Route("~/Employee/All")]
+        [HttpGet]
+        public string GetAllEmployees()
+        {
+            return "Response from GetAllEmployees Method";
+        }
+
+        */
     }
 }
