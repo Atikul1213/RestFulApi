@@ -1,5 +1,6 @@
 ﻿using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Entities;
+using EmployeeAdminPortal.Models.EcommerceModel;
 using EmployeeAdminPortal.Models.EmployeeCon;
 using Microsoft.AspNetCore.Mvc;
 
@@ -86,6 +87,16 @@ namespace EmployeeAdminPortal.Controllers
             return Ok();
         }
 
+        // Custom Route Constraint
+
+        [HttpGet("{name:allowedEmployees}")]
+        public IActionResult GetEmployeesByAllowedEmployee(string name)
+        {
+            var employees = _db.Employees.Where(e => e.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            return employees.Any()
+                ? Ok(employees)
+                : NotFound($"No employee found under the '{name}' name.");
+        }
 
 
         /*

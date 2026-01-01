@@ -1,4 +1,5 @@
 using EmployeeAdminPortal.Data;
+using EmployeeAdminPortal.Data.CustomRoutes;
 using EmployeeAdminPortal.Repositories;
 using EmployeeAdminPortal.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IUserService, UserService>();
+
+#region Custom Route Constraints
+
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap.Add("allowedEmployees",
+        typeof(AllowedEmployeesConstraint));
+});
+
+#endregion
 
 
 var app = builder.Build();
