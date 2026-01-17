@@ -13,13 +13,17 @@ namespace EmployeeAdminPortal.Controllers
         {
             _userService = userService;
         }
-        [HttpGet]
+
+
+        [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()
         {
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
-        [HttpGet("{id}")]
+
+
+        [HttpGet("GetUserById/{id}")]
         public IActionResult GetUserById(int id)
         {
             var user = _userService.GetUserById(id);
@@ -29,13 +33,17 @@ namespace EmployeeAdminPortal.Controllers
             }
             return Ok(user);
         }
-        [HttpPost]
+
+
+        [HttpPost("AddUser")]
         public IActionResult AddUser([FromBody] User user)
         {
             _userService.AddUser(user);
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
         }
-        [HttpPut("{id}")]
+
+
+        [HttpPut("UpdateUser/{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
             if (id != user.Id)
@@ -45,11 +53,27 @@ namespace EmployeeAdminPortal.Controllers
             _userService.UpdateUser(user);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+
+
+        [HttpDelete("DeleteUser/{id}")]
         public IActionResult DeleteUser(int id)
         {
             _userService.DeleteUser(id);
             return NoContent();
+        }
+
+
+        [HttpPost("CreateUser")]
+        public IActionResult CreateUser([FromForm] User user)
+        {
+            var response = new
+            {
+                Success = true,
+                Message = $"User {user.Name} created successfully",
+                Code = StatusCodes.Status200OK
+            };
+
+            return Ok(response);
         }
 
     }

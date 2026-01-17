@@ -1,6 +1,5 @@
 ﻿using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Entities;
-using EmployeeAdminPortal.Models.EcommerceModel;
 using EmployeeAdminPortal.Models.EmployeeCon;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +15,7 @@ namespace EmployeeAdminPortal.Controllers
             _db = db;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllEmployees")]
         public IActionResult GetAllEmployees()
         {
             var employees = _db.Employees.ToList();
@@ -25,7 +24,7 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("GetEmployeeById/{id:int}")]
         public IActionResult GetEmployeeById(int id)
         {
             var employee = _db.Employees.Find(id);
@@ -36,9 +35,27 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(employee);
         }
 
-        [HttpPost]
-        public IActionResult AddEmployee(AddEmployeeDto addEmployeeDto)
+        [HttpPost("AddEmployee")]
+        public async Task<IActionResult> AddEmployee([FromForm] AddEmployeeDto addEmployeeDto)
         {
+
+            if (addEmployeeDto.ProfilePicture != null)
+            {
+                var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+
+                if (!Directory.Exists(uploadFolderPath))
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                var filePath = Path.Combine(uploadFolderPath, addEmployeeDto.ProfilePicture.FileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await addEmployeeDto.ProfilePicture.CopyToAsync(stream);
+                }
+            }
+
             var employeeEntity = new Employee()
             {
                 Name = addEmployeeDto.Name,
@@ -54,7 +71,7 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("UpdateEmployee/{id:int}")]
         public IActionResult UpdateEmployee(int id, UpdateEmployeeDto updateEmployeeDto)
         {
             var employee = _db.Employees.Find(id);
@@ -73,7 +90,7 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
+        [Route("DeleteEmployee/{id:int}")]
         public IActionResult DeleteEmployee(int id)
         {
             var employee = _db.Employees.Find(id);

@@ -38,7 +38,8 @@ namespace EmployeeAdminPortal.Controllers
             [FromQuery] string? name,
             [FromQuery] string? category,
             [FromQuery] decimal? minPrice,
-            [FromQuery] decimal? maxPrice)
+            [FromQuery] decimal? maxPrice,
+            [FromQuery(Name = "Dept")] string department)
         {
 
             var query = _dbContext.Products.AsQueryable();
