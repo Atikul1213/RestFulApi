@@ -233,6 +233,24 @@ namespace EmployeeAdminPortal.Controllers
         }
 
 
+        [HttpGet("custom-object-binding")]
+        public IActionResult CustomObjectBinding([FromQuery] string complexData)
+        {
+            var parts = complexData.Split(':');
+            if (parts?.Length == 3)
+            {
+                var product = new Product
+                {
+                    Name = parts[0],
+                    Category = parts[1],
+                    Price = decimal.TryParse(parts[2], out decimal price) ? price : 0
+                };
+
+                return Ok(product);
+            }
+
+            return BadRequest("Invalid complexData format. Expected format: Name:Category:Price");
+        }
 
         #endregion
 
