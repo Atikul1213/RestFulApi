@@ -3,7 +3,7 @@ using EmployeeAdminPortal.Repositories;
 using EmployeeAdminPortal.Services;
 using Moq;
 
-namespace MyAPI.XUnitTests
+namespace MyAPI.XUnitTests.Tests
 {
     public class UserServiceTests
     {

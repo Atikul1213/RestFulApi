@@ -4,19 +4,25 @@ using EmployeeAdminPortal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace MyAPI.XUnitTests
+namespace MyAPI.XUnitTests.Tests
 {
     public class UsersControllerTests
     {
+        #region Fields
+
         private readonly UsersController _controller;
         private readonly Mock<IUserService> _mockService;
+        #endregion
+
+        #region Ctor
         public UsersControllerTests()
         {
             _mockService = new Mock<IUserService>();
             _controller = new UsersController(_mockService.Object);
         }
+        #endregion
 
-
+        #region Tests
         // Test to verify that GetUserById returns an OkObjectResult with the correct user
         [Fact]
         public void GetUser_ReturnsOkResultWithUser()
@@ -108,5 +114,19 @@ namespace MyAPI.XUnitTests
             Assert.NotNull(result);
             Assert.Equal(204, result.StatusCode);
         }
+
+        [Theory]
+        [InlineData(2, 3, 5)]
+        public void SampleTheoryTest(int a, int b, int expectedSum)  // a = 2, b = 3, expectedSum = 5
+        {
+            // Arrange
+            // Act
+            var actualSum = a + b;
+            // Assert
+            Assert.Equal(expectedSum, actualSum);
+        }
+
+
+        #endregion
     }
 }

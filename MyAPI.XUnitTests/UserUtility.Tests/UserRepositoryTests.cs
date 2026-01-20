@@ -1,39 +1,49 @@
 ﻿using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Repositories;
 
-namespace MyAPI.XUnitTests
+namespace MyAPI.XUnitTests.Tests
 {
     public class UserRepositoryTests
     {
+        #region Fields
+
         private readonly UserRepository _userRepository;
 
+        #endregion
+
+        #region Ctor
         public UserRepositoryTests()
         {
             _userRepository = new UserRepository();
         }
+        #endregion
 
-        // Test to verify that GetUserById returns the correct user
+        #region Tests
+
+        // NamingConvention: MethodName_Condition_ExpectedResult
         [Fact]
         public void GetUserById_ReturnsCorrectUser()
         {
+            // Arrange - Variable, classes mocks
             var userId = 1;
+
+            //Act - Execute this function
             var result = _userRepository.GetUserById(userId);
 
-            // check result is not null
+            // Assert - Whatever is returned, is it what you expected?
             Assert.NotNull(result);
-            // check that the ID of the returned is correct
             Assert.Equal(userId, result.Id);
         }
 
-        // Test to verify that GetUserById returns null when the user is not found
+
         [Fact]
         public void GetUserById_ReturnNullWhenUserNotFound()
         {
-            // Assume this Id does not exist
             var userId = 99;
             var result = _userRepository.GetUserById(userId);
             Assert.Null(result);
         }
+
 
         // Test to verify that GetAllUsers returns all users
         [Fact]
@@ -41,9 +51,7 @@ namespace MyAPI.XUnitTests
         {
             var result = _userRepository.GetAllUsers();
 
-            // Check that the result is not null
             Assert.NotNull(result);
-            // Assuming there are 2 users, check that the count is correct
             Assert.Equal(2, result.Count());
         }
 
@@ -80,13 +88,17 @@ namespace MyAPI.XUnitTests
         [Fact]
         public void DeleteUser_DeletesUserCorrectly()
         {
-            // Arrange
+            // Arrange - Go get your variable, classes
             var userId = 1;
-            // Act
+
+            // Act - Execute this function
             _userRepository.DeleteUser(userId);
             var result = _userRepository.GetUserById(userId);
-            // Assert
-            Assert.Null(result); // Check that the user was deleted and cannot be found
+
+            // Assert - Whatever is returned, is it what you expected?
+            Assert.Null(result);
         }
+
+        #endregion
     }
 }
