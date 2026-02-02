@@ -24,10 +24,10 @@ namespace EmployeeAdminPortal.Services
         public IEnumerable<Product> SearchProducts(string? category, decimal? minPrice, decimal? maxPrice)
         {
             var query = _products.AsQueryable();
-            if (!string.IsNullOrEmpty(category))
-            {
-                query = query.Where(p => p.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
-            }
+            //if (!string.IsNullOrEmpty(category))
+            //{
+            //    query = query.Where(p => p.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+            //}
 
             if (minPrice.HasValue)
             {
@@ -60,10 +60,10 @@ namespace EmployeeAdminPortal.Services
 
         private readonly List<Product> _products = new()
         {
-            new Product { Id = 1, Name = "Laptop", Price = 65000, Category = "Electronics"},
-            new Product { Id = 2, Name = "Headphones", Price = 2500, Category = "Audio" },
-            new Product { Id = 3, Name = "Smartwatch", Price = 12000, Category = "Wearables" },
-            new Product { Id = 4, Name = "Keyboard", Price = 1500, Category = "Accessories" }
+            new Product { Id = 1, Name = "Laptop", Price = 65000, SKU = "Electronics"},
+            new Product { Id = 2, Name = "Headphones", Price = 2500, SKU = "Audio" },
+            new Product { Id = 3, Name = "Smartwatch", Price = 12000, SKU = "Wearables" },
+            new Product { Id = 4, Name = "Keyboard", Price = 1500, SKU = "Accessories" }
         };
 
         #endregion

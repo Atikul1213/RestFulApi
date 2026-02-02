@@ -11,11 +11,18 @@ namespace EmployeeAdminPortal.Data
         {
 
         }
+
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<ProductCategory> ProductCategories { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public DbSet<Payment> Payments { get; set; } = null!;
+        public DbSet<OrderHistory> OrderHistories { get; set; } = null!;
+        public DbSet<FailureLog> FailureLogs => Set<FailureLog>();
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
 
 
 
@@ -63,7 +70,46 @@ namespace EmployeeAdminPortal.Data
                     Name = "Client Application 2",
                     ClientURL = "https://client2.com"
                 }
-                );
+             );
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.OrderStatus)
+                .HasConversion<string>()
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<Payment>()
+                .Property(p => p.PaymentStatus)
+                .HasConversion<string>()
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<OrderHistory>()
+                .Property(h => h.NewStatus)
+                .HasConversion<string>()
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<OrderHistory>()
+                .Property(h => h.OldStatus)
+                .HasConversion<string>()
+                .HasMaxLength(30);
+
+            ConfigureProductCategoryMapping(modelBuilder);
+        }
+
+
+        private void ConfigureProductCategoryMapping(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductCategory>()
+                .HasKey(pc => new { pc.ProductId, pc.CategoryId });
+
+            modelBuilder.Entity<ProductCategory>()
+                .HasOne(pc => pc.Product)
+                .WithMany(p => p.ProductCategories)
+                .HasForeignKey(pc => pc.ProductId);
+
+            modelBuilder.Entity<ProductCategory>()
+                .HasOne(pc => pc.Category)
+                .WithMany(c => c.ProductCategories)
+                .HasForeignKey(pc => pc.CategoryId);
         }
     }
 }

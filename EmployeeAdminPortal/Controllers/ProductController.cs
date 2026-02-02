@@ -47,8 +47,8 @@ namespace EmployeeAdminPortal.Controllers
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(p => p.Name.Contains(name));
 
-            if (!string.IsNullOrEmpty(category))
-                query = query.Where(p => p.Category.Contains(category));
+            //if (!string.IsNullOrEmpty(category))
+            //    query = query.Where(p => p.ProductCategories.Contains(category));
 
             if (minPrice.HasValue)
                 query = query.Where(p => p.Price >= minPrice);
@@ -82,9 +82,8 @@ namespace EmployeeAdminPortal.Controllers
             {
                 Name = productCreateDto.Name,
                 Description = productCreateDto.Description,
-                Category = productCreateDto.Category,
                 Price = productCreateDto.Price,
-                Stock = productCreateDto.Stock
+                StockQuantity = productCreateDto.Stock
             };
 
             _dbContext.Products.Add(product);
@@ -242,7 +241,7 @@ namespace EmployeeAdminPortal.Controllers
                 var product = new Product
                 {
                     Name = parts[0],
-                    Category = parts[1],
+                    Description = parts[1],
                     Price = decimal.TryParse(parts[2], out decimal price) ? price : 0
                 };
 

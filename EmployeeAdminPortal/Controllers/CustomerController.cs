@@ -25,7 +25,7 @@ namespace EmployeeAdminPortal.Controllers
 
             var customer = new Customer()
             {
-                Name = registrationDto.Name,
+                FirstName = registrationDto.Name,
                 Email = registrationDto.Email,
                 Password = registrationDto.Password
             };

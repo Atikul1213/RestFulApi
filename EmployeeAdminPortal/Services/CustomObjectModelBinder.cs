@@ -23,7 +23,7 @@ namespace EmployeeAdminPortal.Services
                 var product = new Product
                 {
                     Name = parts[0],
-                    Category = parts[1],
+                    Description = parts[1],
                     Price = decimal.TryParse(parts[2], out var price) ? price : 0
                 };
 

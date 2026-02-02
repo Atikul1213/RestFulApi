@@ -1,23 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeAdminPortal.Models.EcommerceModel
 {
     public class Order
     {
         public int Id { get; set; }
-        [Required]
-        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+        public string OrderNumber { get; set; } = null!;
         [Required]
         public int CustomerId { get; set; }
-        [JsonIgnore]
-        public Customer Customer { get; set; }
+        public Customer Customer { get; set; } = null!;
+        [Precision(18, 2)]
+        public decimal TotalAmouont { get; set; }
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
         [Required]
-        public string OrderStatus { get; set; }
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal OrderAmount { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+        public string ShippingAddress { get; set; } = null!;
+        public string BillingAddress { get; set; } = null!;
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public Payment? Payment { get; set; }
+        public ICollection<OrderHistory> History { get; set; } = new List<OrderHistory>();
     }
 }
