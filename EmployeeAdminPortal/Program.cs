@@ -2,6 +2,7 @@ using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Data.CustomRoutes;
 using EmployeeAdminPortal.Repositories;
 using EmployeeAdminPortal.Services;
+using EmployeeAdminPortal.Services.TestServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 #endregion
 
