@@ -1,6 +1,8 @@
 ﻿using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Models.EcommerceModel;
 using EmployeeAdminPortal.Models.EcommerceModel.DTO;
+using EmployeeAdminPortal.Repositories;
+using EmployeeAdminPortal.Services.TestServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -14,16 +16,17 @@ namespace EmployeeAdminPortal.Controllers
         #region Fields
 
         private readonly ApplicationDbContext _dbContext;
-
+        private readonly IOrderService _orderService;
         #endregion
 
         #region Ctor
-        public OrderController(ApplicationDbContext dbContext)
+        public OrderController(ApplicationDbContext dbContext,
+            IOrderService orderService)
         {
             _dbContext = dbContext;
+            _orderService = orderService;
         }
         #endregion
-
 
         #region Method
 
@@ -229,6 +232,51 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(order);
         }
 
+        #endregion
+
+        #region Test Methods
+
+        [HttpPost]
+
+        public async Task<IActionResult> OrderCreate([FromBody] OrderCreateDTO orderCreateDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var order = await _orderService.CreateOrderAsync(orderCreateDTO);
+                return Ok(order);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occur" });
+            }
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrder(int id)
+        {
+            var order = await _orderService.GetOrderByIdAsync(id);
+
+            if (order == null)
+                return NotFound();
+
+            return Ok(order);
+        }
         #endregion
     }
 }

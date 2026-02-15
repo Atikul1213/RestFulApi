@@ -6,9 +6,16 @@ namespace EmployeeAdminPortal.Services.TestServices
 {
     public class OrderService : IOrderService
     {
+        #region Fields
+
         private readonly IOrderRepository _orderRepository;
         private readonly IProductRepository _productRepository;
         private readonly ICustomerRepository _customerRepository;
+
+        #endregion
+
+        #region Ctor
+
         public OrderService(
             IOrderRepository orderRepository,
             IProductRepository productRepository,
@@ -18,6 +25,10 @@ namespace EmployeeAdminPortal.Services.TestServices
             _productRepository = productRepository;
             _customerRepository = customerRepository;
         }
+
+        #endregion
+
+        #region Methods
 
         public async Task<OrderResponseDTO?> CreateOrderAsync(OrderCreateDTO orderCreateDto)
         {
@@ -93,13 +104,13 @@ namespace EmployeeAdminPortal.Services.TestServices
         }
 
 
-        private OrderResponseDTO MapToOrderDto(Order order, Customer customer)
+        private OrderResponseDTO MapToOrderDto(Order order, Customer? customer)
         {
 
             return new OrderResponseDTO
             {
                 OrderId = order.Id,
-                CustomerId = customer.Id,
+                CustomerId = customer?.Id ?? 0,
                 CustomerName = customer?.FirstName ?? string.Empty,
                 CustomerEmail = customer?.Email ?? string.Empty,
                 OrderDate = order.OrderDate,
@@ -115,5 +126,7 @@ namespace EmployeeAdminPortal.Services.TestServices
                 }).ToList()
             };
         }
+
+        #endregion
     }
 }
